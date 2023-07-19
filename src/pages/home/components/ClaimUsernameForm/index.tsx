@@ -7,6 +7,7 @@ import { Button, Text, TextInput } from '@ignite-ui/react'
 import { ArrowRight } from 'phosphor-react'
 
 import { Form, FormAnnotation } from './styles'
+import { useRouter } from 'next/router'
 
 const claimUsernameFormSchema = z.object({
   username: z
@@ -24,13 +25,16 @@ export function ClaimUsernameForm() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<claimUsernameFormData>({
     resolver: zodResolver(claimUsernameFormSchema),
   })
 
+  const router = useRouter()
+
   async function handleClainUsername(data: claimUsernameFormData) {
-    console.log(data.username)
+    const { username } = data
+    await router.push(`/register?username=${username}`)
   }
 
   return (
@@ -42,7 +46,7 @@ export function ClaimUsernameForm() {
           placeholder="seu-usuário"
           {...register('username')}
         />
-        <Button size="sm" type="submit">
+        <Button size="sm" type="submit" disabled={isSubmitting}>
           Reservar
           <ArrowRight />
         </Button>
