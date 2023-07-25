@@ -9,22 +9,12 @@ import { AuthError, ConnectBox, ConnectItem } from './styles'
 
 // import { api } from '@/lib/axios'
 
-export default function Register() {
+export default function ConectCalendar() {
   const session = useSession()
   const router = useRouter()
 
   const hasAuthError = !!router.query.error
   const isSignedIn = session.status === 'authenticated'
-  // async function handleRegister(data: RegisterForm) {
-  //   try {
-  //     await api.post('/users', {
-  //       name: data.name,
-  //       username: data.username,
-  //     })
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // }
 
   async function handleConnectCalendar() {
     await signIn('google')
