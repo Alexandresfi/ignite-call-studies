@@ -20,6 +20,8 @@ import {
 
 import { Container, Header } from '../styles'
 import { FormAnnotation, ProfileBox } from './styles'
+import { api } from '@/lib/axios'
+import { useRouter } from 'next/router'
 
 const updateProfileFormSchema = z.object({
   bio: z.string(),
@@ -37,9 +39,14 @@ export default function UpdateProfile() {
   })
 
   const session = useSession()
+  const router = useRouter()
 
   async function handleUpdateProfile(data: UpdateProfileFormData) {
-    console.log(data)
+    await api.put('/users/update-profile', {
+      bio: data.bio,
+    })
+
+    await router.push(`/schedule/${session.data?.user.bio}`)
   }
 
   return (
@@ -59,7 +66,7 @@ export default function UpdateProfile() {
           <Text size="sm">Foto de perfil</Text>
           <Avatar
             src={session.data?.user.avatar_url}
-            alt={session.data?.user?.name}
+            alt={session.data?.user.name}
           />
         </label>
 
