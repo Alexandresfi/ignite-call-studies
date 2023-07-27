@@ -1,11 +1,11 @@
-import { NextApiRequest, NextApiResponse } from 'next'
+import { NextApiRequest, NextApiResponse, NextPageContext } from 'next'
 import { Adapter } from 'next-auth/adapters'
 import { destroyCookie, parseCookies } from 'nookies'
 import { prisma } from '../prisma'
 
 export function PrismaAdapter(
-  req: NextApiRequest,
-  res: NextApiResponse,
+  req: NextApiRequest | NextPageContext['req'],
+  res: NextApiResponse | NextPageContext['res'],
 ): Adapter {
   return {
     async createUser(user) {
@@ -22,7 +22,7 @@ export function PrismaAdapter(
         data: {
           name: user.name,
           email: user.email,
-          avatar_url: user.avantar_url,
+          avatar_url: user.avatar_url,
         },
       })
 
@@ -34,7 +34,7 @@ export function PrismaAdapter(
         id: prismaUser.id,
         name: prismaUser.name,
         username: prismaUser.username,
-        avantar_url: prismaUser.avatar_url!,
+        avatar_url: prismaUser.avatar_url!,
         email: prismaUser.email!,
         emailVerified: null,
       }
@@ -55,7 +55,7 @@ export function PrismaAdapter(
         id: user.id,
         name: user.name,
         username: user?.username,
-        avantar_url: user.avatar_url!,
+        avatar_url: user.avatar_url!,
         email: user.email!,
         emailVerified: null,
       }
@@ -74,7 +74,7 @@ export function PrismaAdapter(
         id: user.id,
         name: user.name,
         username: user?.username,
-        avantar_url: user.avatar_url!,
+        avatar_url: user.avatar_url!,
         email: user.email!,
         emailVerified: null,
       }
@@ -101,7 +101,7 @@ export function PrismaAdapter(
         id: user.id,
         name: user.name,
         username: user?.username,
-        avantar_url: user.avatar_url!,
+        avatar_url: user.avatar_url!,
         email: user.email!,
         emailVerified: null,
       }
@@ -115,14 +115,14 @@ export function PrismaAdapter(
         data: {
           name: user.name,
           email: user.email,
-          avatar_url: user.avantar_url,
+          avatar_url: user.avatar_url,
         },
       })
       return {
         id: prismaUser.id,
         name: prismaUser.name,
         username: prismaUser?.username,
-        avantar_url: prismaUser.avatar_url!,
+        avatar_url: prismaUser.avatar_url!,
         email: prismaUser.email!,
         emailVerified: null,
       }
@@ -185,7 +185,7 @@ export function PrismaAdapter(
           id: user.id,
           name: user.name,
           username: user?.username,
-          avantar_url: user.avatar_url!,
+          avatar_url: user.avatar_url!,
           email: user.email!,
           emailVerified: null,
         },

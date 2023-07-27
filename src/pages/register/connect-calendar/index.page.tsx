@@ -7,8 +7,6 @@ import { Button, Heading, MultiStep, Text } from '@ignite-ui/react'
 import { Container, Header } from '../styles'
 import { AuthError, ConnectBox, ConnectItem } from './styles'
 
-// import { api } from '@/lib/axios'
-
 export default function ConectCalendar() {
   const session = useSession()
   const router = useRouter()
@@ -18,6 +16,10 @@ export default function ConectCalendar() {
 
   async function handleConnectCalendar() {
     await signIn('google')
+  }
+
+  async function handleClick() {
+    await router.push('/register/time-intervals')
   }
 
   return (
@@ -59,7 +61,7 @@ export default function ConectCalendar() {
           </AuthError>
         )}
 
-        <Button disabled={!isSignedIn}>
+        <Button disabled={!isSignedIn} onClick={handleClick}>
           Próximo passo
           <ArrowRight />
         </Button>
